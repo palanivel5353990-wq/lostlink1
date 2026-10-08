@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+LOSTLINK | Tracking Dashboard
+</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+<header class="top-header">
+
+    <div>
+
+        <div class="dashboard-logo">
+            📡 LOSTLINK
+        </div>
+
+        <div class="subtitle">
+            LoRaWAN Emergency Tracking & Recovery System
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="live-status">
+
+            <span class="live-dot"></span>
+
+            SYSTEM ONLINE
+
+        </div>
+
+
+        <button
+        class="logout-btn"
+        onclick="logout()">
+
+            LOGOUT
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<section class="metrics">
+
+
+    <div class="metric-card">
+
+        <div class="metric-title">
+            TARGET DEVICE
+        </div>
+
+        <div class="metric-value blue">
+            OG-865
+        </div>
+
+        <small>
+            Smartphone Tracker
+        </small>
+
+    </div>
+
+
+
+    <div class="metric-card">
+
+        <div class="metric-title">
+            BATTERY RESERVE
+        </div>
+
+        <div
+        class="metric-value green"
+        id="battery">
+
+            82%
+
+        </div>
+
+        <small>
+            Emergency Power
+        </small>
+
+    </div>
+
+
+
+    <div class="metric-card">
+
+        <div class="metric-title">
+            RSSI
+        </div>
+
+        <div
+        class="metric-value"
+        id="rssi">
+
+            -94 dBm
+
+        </div>
+
+        <small>
+            Signal Strength
+        </small>
+
+    </div>
+
+
+
+    <div class="metric-card">
+
+        <div class="metric-title">
+            SNR
+        </div>
+
+        <div
+        class="metric-value yellow"
+        id="snr">
+
+            +8.5 dB
+
+        </div>
+
+        <small>
+            Signal Quality
+        </small>
+
+    </div>
+
+
+</section>
+
+
+
+<div class="main-grid">
+
+
+
+<div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            📊 DEVICE TELEMETRY
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Device ID
+            </span>
+
+            <strong>
+                OG-SMARTPHONE-865
+            </strong>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Phone Code
+            </span>
+
+            <strong id="phoneDisplay">
+                LOST865
+            </strong>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Network
+            </span>
+
+            <strong>
+                LoRaWAN
+            </strong>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Frequency
+            </span>
+
+            <strong>
+                865.2 MHz
+            </strong>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Coordinates
+            </span>
+
+            <strong id="coords">
+                13.0827° N,
+                80.2707° E
+            </strong>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Last Packet
+            </span>
+
+            <strong id="packet">
+                Just now
+            </strong>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <span>
+                Tracking Mode
+            </span>
+
+            <strong class="green">
+                EMERGENCY
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <div class="card-title">
+            🔋 EMERGENCY BATTERY RESERVE
+        </div>
+
+
+        <div class="battery">
+
+            <div
+            class="battery-fill"
+            id="batteryBar">
+
+            </div>
+
+        </div>
+
+
+        <div class="battery-info">
+
+            <span>
+                Power Status
+            </span>
+
+            <strong class="green">
+                ACTIVE
+            </strong>
+
+        </div>
+
+
+        <p class="muted">
+            Low-power tracking mode active
+        </p>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <div class="card-title">
+            🛰️ LORAWAN GATEWAYS
+        </div>
+
+
+        <div class="gateway-row">
+
+            <span>
+
+                <b>
+                    Tower-A
+                </b>
+
+                <small>
+                    Primary Gateway
+                </small>
+
+            </span>
+
+            <strong
+            class="signal"
+            id="towerA">
+
+                -94 dBm
+
+            </strong>
+
+        </div>
+
+
+
+        <div class="gateway-row">
+
+            <span>
+
+                <b>
+                    Tower-B
+                </b>
+
+                <small>
+                    Secondary Gateway
+                </small>
+
+            </span>
+
+            <strong
+            class="signal"
+            id="towerB">
+
+                -102 dBm
+
+            </strong>
+
+        </div>
+
+
+
+        <div class="gateway-row">
+
+            <span>
+
+                <b>
+                    Tower-C
+                </b>
+
+                <small>
+                    Backup Gateway
+                </small>
+
+            </span>
+
+            <strong
+            class="signal"
+            id="towerC">
+
+                -98 dBm
+
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <div class="card-title">
+            ⚠️ SYSTEM ALERT
+        </div>
+
+
+        <div class="alert">
+
+            <b>
+                CRITICAL POWER LEVEL
+            </b>
+
+            <br>
+
+            Target device battery is low.
+            Emergency LoRaWAN tracking remains active.
+
+        </div>
+
+
+        <button
+        class="locate-btn"
+        onclick="locateTarget()">
+
+            📍 LOCATE TARGET
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+
+<div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            🗺️ ESTIMATED TARGET LOCATION
+        </div>
+
+
+        <div class="map">
+
+            <div class="map-label">
+                ● LIVE TRIANGULATION
+            </div>
+
+
+            <div class="gateway g1"></div>
+
+            <div class="gateway g2"></div>
+
+            <div class="gateway g3"></div>
+
+
+            <div class="line line1"></div>
+
+            <div class="line line2"></div>
+
+            <div class="line line3"></div>
+
+
+            <div
+            class="location"
+            id="location">
+
+            </div>
+
+        </div>
+
+
+        <div class="location-info">
+
+            <span>
+                ESTIMATED REGION
+            </span>
+
+            <strong>
+                Chennai Region
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <div class="card-title">
+            📡 SIGNAL TRIANGULATION RADAR
+        </div>
+
+
+        <div class="radar">
+
+            <div class="circle c1"></div>
+
+            <div class="circle c2"></div>
+
+            <div class="circle c3"></div>
+
+
+            <div class="cross horizontal"></div>
+
+            <div class="cross vertical"></div>
+
+
+            <div class="sweep"></div>
+
+
+            <div class="radar-target"></div>
+
+
+            <div class="radar-center">
+                TARGET
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <div class="card-title">
+            📈 LIVE SIGNAL STRENGTH
+        </div>
+
+
+        <div
+        class="chart"
+        id="chart">
+
+
+            <div
+            class="bar"
+            style="height:40%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:55%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:48%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:70%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:62%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:80%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:65%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:75%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:58%">
+            </div>
+
+
+            <div
+            class="bar"
+            style="height:68%">
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+<footer>
+
+LOSTLINK © 2026 —
+Emergency Device Recovery Network
+
+</footer>
+
+
+
+<script>
+
+
+/* LOGIN PROTECTION */
+
+if(
+    sessionStorage.getItem(
+        "lostlinkLoggedIn"
+    ) !== "true"
+){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* PHONE CODE */
+
+const savedPhone =
+    sessionStorage.getItem(
+        "phoneCode"
+    );
+
+
+if(savedPhone){
+
+    document.getElementById(
+        "phoneDisplay"
+    ).innerText = savedPhone;
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+    sessionStorage.clear();
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* LIVE DATA */
+
+let battery = 82;
+
+
+function updateData(){
+
+
+    let rssi =
+        -90 -
+        Math.floor(
+            Math.random() * 18
+        );
+
+
+    document.getElementById(
+        "rssi"
+    ).innerText =
+        rssi + " dBm";
+
+
+
+    let snr =
+        (
+            7 +
+            Math.random() * 3
+        ).toFixed(1);
+
+
+    document.getElementById(
+        "snr"
+    ).innerText =
+        "+" + snr + " dB";
+
+
+
+    battery -= 0.1;
+
+
+    if(battery <= 10){
+
+        battery = 82;
+
+    }
+
+
+    document.getElementById(
+        "battery"
+    ).innerText =
+        battery.toFixed(1) + "%";
+
+
+    document.getElementById(
+        "batteryBar"
+    ).style.width =
+        battery + "%";
+
+
+
+    let lat =
+        13.0827 +
+        (
+            Math.random() - 0.5
+        ) * 0.002;
+
+
+    let lon =
+        80.2707 +
+        (
+            Math.random() - 0.5
+        ) * 0.002;
+
+
+    document.getElementById(
+        "coords"
+    ).innerText =
+
+        lat.toFixed(4) +
+        "° N, " +
+
+        lon.toFixed(4) +
+        "° E";
+
+
+
+    document.getElementById(
+        "packet"
+    ).innerText =
+        new Date()
+        .toLocaleTimeString();
+
+
+
+    document.getElementById(
+        "towerA"
+    ).innerText =
+        (rssi - 2) +
+        " dBm";
+
+
+    document.getElementById(
+        "towerB"
+    ).innerText =
+        (rssi - 8) +
+        " dBm";
+
+
+    document.getElementById(
+        "towerC"
+    ).innerText =
+        (rssi - 5) +
+        " dBm";
+
+
+
+    const bars =
+        document.querySelectorAll(
+            ".bar"
+        );
+
+
+    bars.forEach(
+        function(bar){
+
+            const height =
+                35 +
+                Math.random() * 55;
+
+            bar.style.height =
+                height + "%";
+
+        }
+    );
+
+}
+
+
+/* LOCATE TARGET */
+
+function locateTarget(){
+
+    const target =
+        document.getElementById(
+            "location"
+        );
+
+
+    target.classList.add(
+        "located"
+    );
+
+
+    setTimeout(
+        function(){
+
+            target.classList.remove(
+                "located"
+            );
+
+        },
+        2500
+    );
+
+
+    alert(
+
+        "TARGET LOCATED\n\n" +
+
+        "LoRaWAN triangulation successful.\n\n" +
+
+        "Estimated Region: Chennai\n" +
+
+        "Tracking Confidence: 87%"
+
+    );
+
+}
+
+
+updateData();
+
+
+setInterval(
+    updateData,
+    2000
+);
+
+</script>
+
+</body>
+</html>

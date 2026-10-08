@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOSTLINK | Device Authentication</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-body">
+
+<div class="login-bg-grid"></div>
+
+<div class="login-container">
+
+    <div class="logo">
+
+        <div class="logo-icon">📡</div>
+
+        <h1>LOSTLINK</h1>
+
+        <p>
+            OFF-GRID DEVICE RECOVERY SYSTEM
+        </p>
+
+    </div>
+
+
+    <div class="auth-status">
+
+        <span class="status-dot"></span>
+
+        DEVICE AUTHENTICATION
+
+    </div>
+
+
+    <form onsubmit="connectDevice(event)">
+
+        <div class="input-box">
+
+            <label>📱 PHONE CODE</label>
+
+            <input
+                type="text"
+                id="phoneCode"
+                placeholder="Enter Phone Code"
+                maxlength="20"
+                autocomplete="off"
+                required>
+
+        </div>
+
+
+        <div class="input-box">
+
+            <label>🔢 IMEI NUMBER</label>
+
+            <input
+                type="text"
+                id="imei"
+                placeholder="Enter 15-digit IMEI"
+                maxlength="15"
+                inputmode="numeric"
+                autocomplete="off"
+                required>
+
+        </div>
+
+
+        <div class="device-info">
+
+            <span>📡 LoRaWAN</span>
+
+            <span>🔒 Secure Link</span>
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            type="submit">
+
+            CONNECT DEVICE
+
+        </button>
+
+    </form>
+
+
+    <div
+        class="status-message error"
+        id="error">
+
+        ❌ Invalid Phone Code or IMEI Number
+
+    </div>
+
+
+    <div
+        class="status-message success"
+        id="success">
+
+        ✅ Device authenticated successfully
+
+    </div>
+
+
+    <div class="security">
+
+        🛡️ Protected Emergency Tracking Network
+
+    </div>
+
+
+    <div class="footer">
+
+        LOSTLINK © 2026
+        <br>
+        LoRaWAN Emergency Recovery Network
+
+    </div>
+
+</div>
+
+
+<script>
+
+function connectDevice(event){
+
+    event.preventDefault();
+
+
+    const phoneCode =
+        document
+        .getElementById("phoneCode")
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const imei =
+        document
+        .getElementById("imei")
+        .value
+        .trim();
+
+
+    const error =
+        document.getElementById("error");
+
+    const success =
+        document.getElementById("success");
+
+
+    error.style.display = "none";
+
+    success.style.display = "none";
+
+
+    /*
+       DEMO DEVICE AUTHENTICATION
+
+       PHONE CODE : LOST865
+       IMEI       : 123456789012345
+    */
+
+
+    if(
+        phoneCode === "LOST865" &&
+        imei === "123456789012345"
+    ){
+
+        success.style.display = "block";
+
+
+        sessionStorage.setItem(
+            "lostlinkLoggedIn",
+            "true"
+        );
+
+
+        sessionStorage.setItem(
+            "phoneCode",
+            phoneCode
+        );
+
+
+        setTimeout(function(){
+
+            window.location.href =
+                "dashboard.html";
+
+        },1000);
+
+
+    }else{
+
+        error.style.display = "block";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
